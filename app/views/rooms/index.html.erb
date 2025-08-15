@@ -1,0 +1,26 @@
+<h1>Salas</h1>
+
+<%= link_to 'Nova Sala', new_room_path %>
+
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>Tipo</th>
+    <th>Capacidade</th>
+    <th>Recursos</th>
+    <th>Ações</th>
+  </tr>
+  <% @rooms.each do |room| %>
+    <tr>
+      <td><%= room.name %></td>
+      <td><%= room.room_type %></td>
+      <td><%= room.capacity %></td>
+      <td><%= room.resources %></td>
+      <td>
+        <%= link_to 'Ver', room_path(room) %> |
+        <%= link_to 'Editar', edit_room_path(room) %> |
+        <%= link_to 'Excluir', room_path(room), method: :delete, data: { confirm: 'Tem certeza?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
