@@ -1,23 +1,28 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: %i[ show edit update destroy ]
+  before_action :set_room, only: %i[show edit update destroy]
+  before_action :authenticate_user!
+  
 
   def index
-    @rooms = Room.all
+    @rooms = policy_scope(Room)
   end
 
   def show
+    authorize @room
   end
 
   def new
     @room = Room.new
+    authorize @room
   end
 
   def edit
+    authorize @room
   end
 
   def create
     @room = Room.new(room_params)
-
+    authorize @room
     respond_to do |format|
       if @room.save
         format.html { redirect_to @room, notice: "Room was successfully created." }
@@ -30,6 +35,7 @@ class RoomsController < ApplicationController
   end
 
   def update
+    authorize @room
     respond_to do |format|
       if @room.update(room_params)
         format.html { redirect_to @room, notice: "Room was successfully updated." }
@@ -42,6 +48,7 @@ class RoomsController < ApplicationController
   end
 
   def destroy
+    authorize @room
     @room.destroy
     respond_to do |format|
       format.html { redirect_to rooms_path, notice: "Room was successfully destroyed." }

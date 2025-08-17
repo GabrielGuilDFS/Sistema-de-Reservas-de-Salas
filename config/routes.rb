@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "reservations/index"
+  get "reservations/show"
+  get "reservations/new"
+  get "reservations/edit"
   devise_for :users
 
   authenticated :user do
@@ -15,6 +19,7 @@ Rails.application.routes.draw do
   
   resources :users, only: [:new,:create]
   resources :rooms
+  resources :reservations
 
   get "up" => "rails/health#show", as: :rails_health_check
 end
